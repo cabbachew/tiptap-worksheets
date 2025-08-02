@@ -1,3 +1,7 @@
+// ORIGINAL TIPTAP SIMPLE UI TEMPLATE - NO CUSTOM FEATURES
+// This is the exact replica of https://template.tiptap.dev/preview/templates/simple
+// DO NOT ADD CUSTOM FEATURES HERE - USE CustomEditor FOR THAT
+
 "use client"
 
 import * as React from "react"
@@ -56,10 +60,6 @@ import { UndoRedoButton } from "@/components/tiptap-ui/undo-redo-button"
 
 // --- Icons ---
 import { ArrowLeftIcon } from "@/components/tiptap-icons/arrow-left-icon"
-
-// --- Custom Components ---
-import { WidthToggle, type WidthSize } from "@/components/WidthToggle"
-import { CopyViewLinkButton } from "@/components/CopyViewLinkButton"
 import { HighlighterIcon } from "@/components/tiptap-icons/highlighter-icon"
 import { LinkIcon } from "@/components/tiptap-icons/link-icon"
 
@@ -69,86 +69,27 @@ import { useWindowSize } from "@/hooks/use-window-size"
 import { useCursorVisibility } from "@/hooks/use-cursor-visibility"
 import { useScrolling } from "@/hooks/use-scrolling"
 
-// --- Components ---
-import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
-
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
+import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle"
 
 import content from "@/components/tiptap-templates/simple/data/content.json"
 
-const ViewOnlyToolbarContent = ({
-  showLogo = false,
-  logoUrl,
-  companyName,
-  editorWidth,
-  onWidthChange,
-}: {
-  showLogo?: boolean
-  logoUrl?: string
-  companyName?: string
-  editorWidth: WidthSize
-  onWidthChange: (width: WidthSize) => void
-}) => {
-  return (
-    <>
-      {showLogo && logoUrl && (
-        <ToolbarGroup>
-          <img 
-            src={logoUrl} 
-            alt={`${companyName} logo`}
-            className="w-6 h-6 object-contain"
-          />
-        </ToolbarGroup>
-      )}
-      
-      <Spacer />
-      
-      <ToolbarGroup>
-        <WidthToggle currentWidth={editorWidth} onWidthChange={onWidthChange} />
-        <CopyViewLinkButton isEditMode={false} />
-        <ThemeToggle />
-      </ToolbarGroup>
-    </>
-  )
-}
-
-const MainToolbarContent = ({
+// ORIGINAL TOOLBAR - NO CUSTOM FEATURES
+const OriginalToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
   isMobile,
-  showLogo = false,
-  logoUrl,
-  companyName,
-  editorWidth,
-  onWidthChange,
-  isEditMode = true,
 }: {
   onHighlighterClick: () => void
   onLinkClick: () => void
   isMobile: boolean
-  showLogo?: boolean
-  logoUrl?: string
-  companyName?: string
-  editorWidth: WidthSize
-  onWidthChange: (width: WidthSize) => void
-  isEditMode?: boolean
 }) => {
   return (
     <>
-      {showLogo && logoUrl && (
-        <ToolbarGroup>
-          <img 
-            src={logoUrl} 
-            alt={`${companyName} logo`}
-            className="w-6 h-6 object-contain"
-          />
-        </ToolbarGroup>
-      )}
-      
       <Spacer />
 
       <ToolbarGroup>
@@ -211,14 +152,11 @@ const MainToolbarContent = ({
       {isMobile && <ToolbarSeparator />}
 
       <ToolbarGroup>
-        <WidthToggle currentWidth={editorWidth} onWidthChange={onWidthChange} />
-        <CopyViewLinkButton isEditMode={isEditMode} />
         <ThemeToggle />
       </ToolbarGroup>
     </>
   )
 }
-
 
 const MobileToolbarContent = ({
   type,
@@ -249,37 +187,18 @@ const MobileToolbarContent = ({
   </>
 )
 
-interface SimpleEditorProps {
-  content?: any
-  onChange?: (content: any) => void
-  editable?: boolean
-  showToolbar?: boolean
-  logoUrl?: string
-  companyName?: string
-}
-
-export function SimpleEditor({ 
-  content,
-  onChange,
-  editable = true,
-  showToolbar = true,
-  logoUrl,
-  companyName
-}: SimpleEditorProps = {}) {
+// ORIGINAL SIMPLE UI EDITOR - NO CUSTOM FEATURES
+export function SimpleUiEditor() {
   const isMobile = useIsMobile()
   const windowSize = useWindowSize()
   const [mobileView, setMobileView] = React.useState<
     "main" | "highlighter" | "link"
   >("main")
-  const [editorWidth, setEditorWidth] = React.useState<WidthSize>("medium")
   const toolbarRef = React.useRef<HTMLDivElement>(null)
 
   const editor = useEditor({
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
-    editable,
-    content,
-    onUpdate: onChange ? ({ editor }) => onChange(editor.getJSON()) : undefined,
     editorProps: {
       attributes: {
         autocomplete: "off",
@@ -333,57 +252,37 @@ export function SimpleEditor({
   return (
     <div className="simple-editor-wrapper">
       <EditorContext.Provider value={{ editor }}>
-        {showToolbar && (
-          <Toolbar
-            ref={toolbarRef}
-            style={{
-              ...(isScrolling && isMobile
-                ? { opacity: 0, transition: "opacity 0.1s ease-in-out" }
-                : {}),
-              ...(isMobile
-                ? {
-                    bottom: `calc(100% - ${windowSize.height - rect.y}px)`,
-                  }
-                : {}),
-            }}
-          >
-            {!editable ? (
-              <ViewOnlyToolbarContent
-                showLogo={!!logoUrl}
-                logoUrl={logoUrl}
-                companyName={companyName}
-                editorWidth={editorWidth}
-                onWidthChange={setEditorWidth}
-              />
-            ) : mobileView === "main" ? (
-              <MainToolbarContent
-                onHighlighterClick={() => setMobileView("highlighter")}
-                onLinkClick={() => setMobileView("link")}
-                isMobile={isMobile}
-                showLogo={!!logoUrl}
-                logoUrl={logoUrl}
-                companyName={companyName}
-                editorWidth={editorWidth}
-                onWidthChange={setEditorWidth}
-                isEditMode={editable}
-              />
-            ) : (
-              <MobileToolbarContent
-                type={mobileView === "highlighter" ? "highlighter" : "link"}
-                onBack={() => setMobileView("main")}
-              />
-            )}
-          </Toolbar>
-        )}
+        <Toolbar
+          ref={toolbarRef}
+          style={{
+            ...(isScrolling && isMobile
+              ? { opacity: 0, transition: "opacity 0.1s ease-in-out" }
+              : {}),
+            ...(isMobile
+              ? {
+                  bottom: `calc(100% - ${windowSize.height - rect.y}px)`,
+                }
+              : {}),
+          }}
+        >
+          {mobileView === "main" ? (
+            <OriginalToolbarContent
+              onHighlighterClick={() => setMobileView("highlighter")}
+              onLinkClick={() => setMobileView("link")}
+              isMobile={isMobile}
+            />
+          ) : (
+            <MobileToolbarContent
+              type={mobileView === "highlighter" ? "highlighter" : "link"}
+              onBack={() => setMobileView("main")}
+            />
+          )}
+        </Toolbar>
 
         <EditorContent
           editor={editor}
           role="presentation"
           className="simple-editor-content"
-          style={{
-            maxWidth: editorWidth === 'small' ? '800px' : editorWidth === 'medium' ? '1000px' : '1200px',
-            margin: '0 auto'
-          }}
         />
       </EditorContext.Provider>
     </div>

@@ -1,3 +1,8 @@
+// CUSTOM EDITOR FOR TEST ROUTES - PROTOTYPE WITH CUSTOM FEATURES
+// This is the enhanced version with logo, width controls, sharing, light theme
+// DO NOT USE FOR ROOT PAGE - USE SimpleUiEditor FOR THAT
+// Used for: /test/edit and /test/view routes
+
 "use client"
 
 import * as React from "react"
@@ -78,8 +83,7 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
 
-import content from "@/components/tiptap-templates/simple/data/content.json"
-
+// VIEW-ONLY TOOLBAR: Logo left, width/share/theme right
 const ViewOnlyToolbarContent = ({
   showLogo = false,
   logoUrl,
@@ -116,6 +120,7 @@ const ViewOnlyToolbarContent = ({
   )
 }
 
+// MAIN TOOLBAR: Logo left, editing tools center, width/share/theme right
 const MainToolbarContent = ({
   onHighlighterClick,
   onLinkClick,
@@ -219,7 +224,6 @@ const MainToolbarContent = ({
   )
 }
 
-
 const MobileToolbarContent = ({
   type,
   onBack,
@@ -249,7 +253,7 @@ const MobileToolbarContent = ({
   </>
 )
 
-interface SimpleEditorProps {
+interface CustomEditorProps {
   content?: any
   onChange?: (content: any) => void
   editable?: boolean
@@ -258,14 +262,15 @@ interface SimpleEditorProps {
   companyName?: string
 }
 
-export function SimpleEditor({ 
+// CUSTOM EDITOR - PROTOTYPE WITH ALL CUSTOM FEATURES
+export function CustomEditor({ 
   content,
   onChange,
   editable = true,
   showToolbar = true,
   logoUrl,
   companyName
-}: SimpleEditorProps = {}) {
+}: CustomEditorProps = {}) {
   const isMobile = useIsMobile()
   const windowSize = useWindowSize()
   const [mobileView, setMobileView] = React.useState<
@@ -285,7 +290,7 @@ export function SimpleEditor({
         autocomplete: "off",
         autocorrect: "off",
         autocapitalize: "off",
-        "aria-label": "Main content area, start typing to enter text.",
+        "aria-label": "Custom worksheet content area, start typing to edit.",
         class: "simple-editor",
       },
     },
@@ -315,7 +320,6 @@ export function SimpleEditor({
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content,
   })
 
   const isScrolling = useScrolling()
@@ -382,7 +386,8 @@ export function SimpleEditor({
           className="simple-editor-content"
           style={{
             maxWidth: editorWidth === 'small' ? '800px' : editorWidth === 'medium' ? '1000px' : '1200px',
-            margin: '0 auto'
+            margin: '0 auto',
+            padding: '2rem'
           }}
         />
       </EditorContext.Provider>
