@@ -9,19 +9,29 @@
     {
       "type": "paragraph",
       "content": [
-        { "type": "text", "marks": [{ "type": "bold" }], "text": "Name:" },
-        { "type": "text", "text": " _________________________ " },
-        { "type": "text", "marks": [{ "type": "bold" }], "text": "Date:" },
-        { "type": "text", "text": " _________________________" }
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Name: " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Student Name]" }
       ]
     },
     {
       "type": "paragraph",
       "content": [
-        { "type": "text", "marks": [{ "type": "bold" }], "text": "Grade Level:" },
-        { "type": "text", "text": " 5th Grade " },
-        { "type": "text", "marks": [{ "type": "bold" }], "text": "Duration:" },
-        { "type": "text", "text": " 30 minutes" }
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Date: " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Today's Date]" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Grade Level: " },
+        { "type": "text", "text": "5th Grade" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Duration: " },
+        { "type": "text", "text": "30 minutes" }
       ]
     },
     {
@@ -85,7 +95,10 @@
           "content": [
             {
               "type": "paragraph",
-              "content": [{ "type": "text", "text": "1/2 = _______" }]
+              "content": [
+                { "type": "text", "text": "1/2 = " },
+                { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Your answer]" }
+              ]
             }
           ]
         },
@@ -94,7 +107,10 @@
           "content": [
             {
               "type": "paragraph",
-              "content": [{ "type": "text", "text": "3/4 = _______" }]
+              "content": [
+                { "type": "text", "text": "3/4 = " },
+                { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Your answer]" }
+              ]
             }
           ]
         },
@@ -103,7 +119,10 @@
           "content": [
             {
               "type": "paragraph",
-              "content": [{ "type": "text", "text": "2/5 = _______" }]
+              "content": [
+                { "type": "text", "text": "2/5 = " },
+                { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Your answer]" }
+              ]
             }
           ]
         }
@@ -117,15 +136,7 @@
     {
       "type": "paragraph",
       "content": [
-        { "type": "text", "text": "Sarah ate " },
-        { "type": "text", "marks": [{ "type": "superscript" }], "text": "3" },
-        { "type": "text", "text": "/" },
-        { "type": "text", "marks": [{ "type": "subscript" }], "text": "8" },
-        { "type": "text", "text": " of a pizza. Her brother ate " },
-        { "type": "text", "marks": [{ "type": "superscript" }], "text": "1" },
-        { "type": "text", "text": "/" },
-        { "type": "text", "marks": [{ "type": "subscript" }], "text": "4" },
-        { "type": "text", "text": " of the same pizza." }
+        { "type": "text", "text": "Sarah ate 3/8 of a pizza. Her brother ate 1/4 of the same pizza." }
       ]
     },
     {
@@ -143,17 +154,16 @@
     },
     {
       "type": "paragraph",
-      "content": [{ "type": "text", "text": "_________________________________________________________________" }]
-    },
-    {
-      "type": "paragraph",
-      "content": [{ "type": "text", "text": "_________________________________________________________________" }]
+      "content": [
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Show your calculation steps here]" }
+      ]
     },
     {
       "type": "paragraph",
       "content": [
         { "type": "text", "marks": [{ "type": "bold" }], "text": "Answer:" },
-        { "type": "text", "text": " _______" }
+        { "type": "text", "text": " " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Final answer]" }
       ]
     },
     {
@@ -210,14 +220,24 @@
               "type": "text",
               "marks": [
                 { "type": "bold" },
-                { "type": "highlight", "attrs": { "color": "#4ecdc4" } }
+                { "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-green)" } }
               ],
               "text": "Challenge:"
             },
             {
               "type": "text",
-              "marks": [{ "type": "highlight", "attrs": { "color": "#4ecdc4" } }],
+              "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-green)" } }],
               "text": " Can you think of a real-world situation where you would use fractions and decimals together?"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }],
+              "text": "[Write your example here]"
             }
           ]
         }

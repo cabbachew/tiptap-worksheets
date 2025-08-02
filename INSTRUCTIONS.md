@@ -1,286 +1,464 @@
 # AI Worksheet Generation Instructions
 
-This document provides instructions for LLMs to generate educational worksheets that will be rendered in a Tiptap Simple Editor. The output should be valid HTML that utilizes all available editor features.
+This document provides instructions for LLMs to generate educational worksheets that will be rendered in a Tiptap Simple Editor. The output should be in **Tiptap JSON format** that can utilize the available editor features as appropriate for the content.
+
+## Output Format: Tiptap JSON
+
+You must output worksheets in **Tiptap JSON format**. This is a structured document format that represents the content as nodes and marks.
+
+### Basic JSON Structure
+```json
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": { "level": 1 },
+      "content": [{ "type": "text", "text": "Heading Text" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "Paragraph text" }]
+    }
+  ]
+}
+```
 
 ## Available Editor Features
 
-The Tiptap Simple Editor supports the following HTML elements and formatting:
+The Tiptap Simple Editor supports the following content types and formatting:
 
 ### Text Formatting
-- **Bold**: `<strong>text</strong>` or `<b>text</b>`
-- **Italic**: `<em>text</em>` or `<i>text</i>`
-- **Underline**: `<u>text</u>`
-- **Strikethrough**: `<s>text</s>`
-- **Code**: `<code>inline code</code>`
-- **Superscript**: `<sup>text</sup>`
-- **Subscript**: `<sub>text</sub>`
+Text can have various marks applied:
+
+**Bold text:**
+```json
+{
+  "type": "text",
+  "marks": [{ "type": "bold" }],
+  "text": "Bold text"
+}
+```
+
+**Italic text:**
+```json
+{
+  "type": "text",
+  "marks": [{ "type": "italic" }],
+  "text": "Italic text"
+}
+```
+
+**Highlighted text (for user input areas):**
+```json
+{
+  "type": "text",
+  "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }],
+  "text": "[Your answer here]"
+}
+```
+
+**Multiple marks:**
+```json
+{
+  "type": "text",
+  "marks": [
+    { "type": "bold" },
+    { "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-green)" } }
+  ],
+  "text": "[Bold highlighted text]"
+}
+```
 
 ### Headings
-Use semantic heading levels:
-```html
-<h1>Main Title</h1>
-<h2>Section Title</h2>
-<h3>Subsection Title</h3>
-<h4>Minor Section</h4>
-<h5>Small Heading</h5>
-<h6>Smallest Heading</h6>
+Use heading nodes with level attributes:
+```json
+{
+  "type": "heading",
+  "attrs": { "level": 1 },
+  "content": [{ "type": "text", "text": "Main Title" }]
+}
 ```
 
+Available levels: 1, 2, 3, 4, 5, 6
+
 ### Text Alignment
-```html
-<p style="text-align: left">Left aligned text</p>
-<p style="text-align: center">Center aligned text</p>
-<p style="text-align: right">Right aligned text</p>
-<p style="text-align: justify">Justified text</p>
+```json
+{
+  "type": "paragraph",
+  "attrs": { "textAlign": "center" },
+  "content": [{ "type": "text", "text": "Center aligned text" }]
+}
 ```
+
+Available alignments: "left", "center", "right", "justify"
 
 ### Lists
 **Bullet Lists:**
-```html
-<ul>
-  <li>First item</li>
-  <li>Second item</li>
-  <li>Third item</li>
-</ul>
+```json
+{
+  "type": "bulletList",
+  "content": [
+    {
+      "type": "listItem",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "First item" }]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 **Ordered Lists:**
-```html
-<ol>
-  <li>First step</li>
-  <li>Second step</li>
-  <li>Third step</li>
-</ol>
+```json
+{
+  "type": "orderedList",
+  "content": [
+    {
+      "type": "listItem",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "First step" }]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 **Task Lists (Checkboxes):**
-```html
-<ul data-type="taskList">
-  <li data-type="taskItem" data-checked="false">Incomplete task</li>
-  <li data-type="taskItem" data-checked="true">Completed task</li>
-  <li data-type="taskItem" data-checked="false">Another task</li>
-</ul>
+```json
+{
+  "type": "taskList",
+  "content": [
+    {
+      "type": "taskItem",
+      "attrs": { "checked": false },
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "Incomplete task" }]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ### Block Elements
 
-**Paragraphs:**
-```html
-<p>Regular paragraph text.</p>
-```
-
 **Blockquotes:**
-```html
-<blockquote>
-  <p>This is a quoted section or important note.</p>
-</blockquote>
+```json
+{
+  "type": "blockquote",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "This is a quoted section or important note." }]
+    }
+  ]
+}
 ```
 
 **Code Blocks:**
-```html
-<pre><code>
-function example() {
-  console.log("Code example");
+```json
+{
+  "type": "codeBlock",
+  "attrs": { "language": "javascript" },
+  "content": [{ "type": "text", "text": "function example() {\n  console.log(\"Code example\");\n}" }]
 }
-</code></pre>
 ```
 
 **Horizontal Rules:**
-```html
-<hr>
+```json
+{
+  "type": "horizontalRule"
+}
 ```
 
-### Text Highlighting
-```html
-<mark>Highlighted text</mark>
-<mark style="background-color: #ffff00">Yellow highlight</mark>
-<mark style="background-color: #ff6b6b">Red highlight</mark>
-<mark style="background-color: #4ecdc4">Teal highlight</mark>
-<mark style="background-color: #45b7d1">Blue highlight</mark>
-<mark style="background-color: #f9ca24">Orange highlight</mark>
-<mark style="background-color: #6c5ce7">Purple highlight</mark>
+### Available Highlight Colors
+Use these CSS variables for consistent highlighting:
+- `var(--tt-color-highlight-gray)` - Gray highlight
+- `var(--tt-color-highlight-brown)` - Brown highlight  
+- `var(--tt-color-highlight-orange)` - Orange highlight
+- `var(--tt-color-highlight-yellow)` - Yellow highlight (recommended for user input areas)
+- `var(--tt-color-highlight-green)` - Green highlight
+- `var(--tt-color-highlight-blue)` - Blue highlight
+- `var(--tt-color-highlight-purple)` - Purple highlight
+- `var(--tt-color-highlight-pink)` - Pink highlight
+- `var(--tt-color-highlight-red)` - Red highlight
+
+## User Input Convention
+
+Use square brackets with highlighted text to indicate where users should fill in content:
+```json
+{
+  "type": "text",
+  "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }],
+  "text": "[Your answer here]"
+}
 ```
 
-### Links
-```html
-<a href="https://example.com">External link</a>
-<a href="mailto:teacher@school.edu">Email link</a>
-<a href="tel:+1234567890">Phone link</a>
-```
-
-### Images
-```html
-<img src="data:image/jpeg;base64,..." alt="Description of image">
-```
-*Note: For AI generation, you can reference placeholder images or suggest where images should be inserted*
+**Common user input patterns:**
+- `[Your answer here]` - General answer field
+- `[Student name]` - Name field
+- `[Fill in the blank]` - Fill-in-the-blank response
+- `[Write your explanation here]` - Extended response area
 
 ## Worksheet Structure Guidelines
 
 ### 1. Header Section
 Every worksheet should start with:
-```html
-<h1>Subject: Topic Name</h1>
-<p><strong>Name:</strong> _________________________ <strong>Date:</strong> _________________________</p>
-<p><strong>Grade Level:</strong> X <strong>Duration:</strong> X minutes</p>
-<hr>
+```json
+{
+  "type": "heading",
+  "attrs": { "level": 1 },
+  "content": [{ "type": "text", "text": "Subject: Topic Name" }]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Name: " },
+    { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Student Name]" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Date: " },
+    { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Today's Date]" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Grade Level: " },
+    { "type": "text", "text": "[X]" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Duration: " },
+    { "type": "text", "text": "[X] minutes" }
+  ]
+},
+{
+  "type": "horizontalRule"
+}
 ```
 
 ### 2. Instructions Section
-```html
-<h2>Instructions</h2>
-<p>Clear, concise instructions for completing the worksheet.</p>
-<ul>
-  <li>First instruction</li>
-  <li>Second instruction</li>
-</ul>
-```
+Clear instructions help students understand expectations and improve completion rates.
 
 ### 3. Content Sections
-Use semantic headings and varied question types:
+Use semantic headings and varied question types. **Important: Keep answer areas on separate lines for clean formatting.**
 
-**Multiple Choice:**
-```html
-<h3>Question 1: Multiple Choice</h3>
-<p>What is 2 + 2?</p>
-<ul>
-  <li>A) 3</li>
-  <li>B) 4</li>
-  <li>C) 5</li>
-  <li>D) 6</li>
-</ul>
-<p><strong>Answer:</strong> _______</p>
+**Short Answer Pattern:**
+```json
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Question:" },
+    { "type": "text", "text": " Explain the water cycle in 2-3 sentences." }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Answer:" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Write your explanation here]" }
+  ]
+}
 ```
 
-**Fill in the Blanks:**
-```html
-<h3>Question 2: Fill in the Blanks</h3>
-<p>The capital of France is <u>___________</u>.</p>
-```
-
-**Short Answer:**
-```html
-<h3>Question 3: Short Answer</h3>
-<p>Explain the water cycle in 2-3 sentences.</p>
-<p><strong>Answer:</strong></p>
-<p>_________________________________________________________________</p>
-<p>_________________________________________________________________</p>
-<p>_________________________________________________________________</p>
-```
-
-**Task List:**
-```html
-<h3>Question 4: Checklist</h3>
-<p>Check off each step as you complete the experiment:</p>
-<ul data-type="taskList">
-  <li data-type="taskItem" data-checked="false">Gather materials</li>
-  <li data-type="taskItem" data-checked="false">Set up workspace</li>
-  <li data-type="taskItem" data-checked="false">Record observations</li>
-  <li data-type="taskItem" data-checked="false">Clean up</li>
-</ul>
-```
-
-**Math Problems:**
-```html
-<h3>Question 5: Math Problem</h3>
-<p>Solve for x: 2x + 5 = 13</p>
-<p><strong>Work:</strong></p>
-<p>_________________________________________________________________</p>
-<p>_________________________________________________________________</p>
-<p><strong>Answer:</strong> x = _______</p>
+**Math Problem Pattern:**
+```json
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "text": "Solve for x: 2x + 5 = 13" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Work:" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Show your work here]" }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+    { "type": "text", "marks": [{ "type": "bold" }], "text": "Answer:" },
+    { "type": "text", "text": " x = " },
+    { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Final answer]" }
+  ]
+}
 ```
 
 ### 4. Interactive Elements
 
-**Highlighted Important Information:**
-```html
-<blockquote>
-  <p><mark style="background-color: #ffff00"><strong>Important:</strong> Remember to show your work for all calculations.</mark></p>
-</blockquote>
-```
-
-**Code Examples (for Computer Science/Programming):**
-```html
-<h3>Code Analysis</h3>
-<p>What does this Python function do?</p>
-<pre><code>def calculate_area(length, width):
-    return length * width</code></pre>
-<p><strong>Answer:</strong> _________________________________________________________________</p>
+**Challenge Questions (use blockquotes for special sections):**
+```json
+{
+  "type": "blockquote",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            { "type": "bold" },
+            { "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-green)" } }
+          ],
+          "text": "Challenge:"
+        },
+        {
+          "type": "text",
+          "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-green)" } }],
+          "text": " Can you think of a real-world example?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }],
+          "text": "[Write your example here]"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## Sample Complete Worksheet
 
-```html
-<h1>Mathematics: Fractions and Decimals</h1>
-<p><strong>Name:</strong> _________________________ <strong>Date:</strong> _________________________</p>
-<p><strong>Grade Level:</strong> 5th Grade <strong>Duration:</strong> 30 minutes</p>
-<hr>
+The complete worksheet should follow this JSON structure (see the full example in `/src/data/sample-worksheet.json`):
 
-<h2>Instructions</h2>
-<p>Complete all problems below. Show your work where indicated.</p>
-<ul>
-  <li>Use pencil for all answers</li>
-  <li>Simplify fractions to lowest terms</li>
-  <li>Round decimals to two decimal places</li>
-</ul>
-
-<h3>Problem 1: Converting Fractions to Decimals</h3>
-<p>Convert the following fractions to decimals:</p>
-<ol>
-  <li>1/2 = _______</li>
-  <li>3/4 = _______</li>
-  <li>2/5 = _______</li>
-</ol>
-
-<h3>Problem 2: Word Problems</h3>
-<p>Sarah ate <sup>3</sup>/<sub>8</sub> of a pizza. Her brother ate <sup>1</sup>/<sub>4</sub> of the same pizza.</p>
-<p><strong>Question:</strong> How much pizza did they eat together?</p>
-<p><strong>Work:</strong></p>
-<p>_________________________________________________________________</p>
-<p>_________________________________________________________________</p>
-<p><strong>Answer:</strong> _______</p>
-
-<h3>Problem 3: Self-Check</h3>
-<p>Complete this checklist when you finish:</p>
-<ul data-type="taskList">
-  <li data-type="taskItem" data-checked="false">I showed my work for all problems</li>
-  <li data-type="taskItem" data-checked="false">I simplified all fractions</li>
-  <li data-type="taskItem" data-checked="false">I checked my decimal calculations</li>
-</ul>
-
-<blockquote>
-  <p><mark style="background-color: #4ecdc4"><strong>Challenge:</strong> Can you think of a real-world situation where you would use fractions and decimals together?</mark></p>
-</blockquote>
-
-<hr>
-<p style="text-align: center"><em>Great job! Remember to review your answers before submitting.</em></p>
+```json
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": { "level": 1 },
+      "content": [{ "type": "text", "text": "Mathematics: Fractions and Decimals" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Name: " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Student Name]" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Date: " },
+        { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Today's Date]" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Grade Level: " },
+        { "type": "text", "text": "5th Grade" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Duration: " },
+        { "type": "text", "text": "30 minutes" }
+      ]
+    },
+    {
+      "type": "horizontalRule"
+    },
+    {
+      "type": "orderedList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                { "type": "text", "text": "1/2 = " },
+                { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "var(--tt-color-highlight-yellow)" } }], "text": "[Your answer]" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "taskList",
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": { "checked": false },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "I showed my work for all problems" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
+
+## Formatting Guidelines
+
+**Clean Line Separation:** Keep different elements on separate lines for better readability:
+- Put user input areas `[like this]` on their own paragraph nodes
+- Separate question text from answer areas
+- Use distinct paragraphs for labels like "Question:", "Answer:", "Work:"
+- Avoid cramming multiple elements into single text nodes
 
 ## Output Requirements
 
-When generating worksheets:
+When generating worksheets in **Tiptap JSON format**:
 
-1. **Always use valid HTML** that matches the examples above
-2. **Include variety** - use different question types, formatting, and features
-3. **Make it interactive** - include task lists, fill-in-blanks, and clear answer spaces
-4. **Use semantic structure** - proper headings, paragraphs, and lists
-5. **Add visual interest** - use highlighting, blockquotes, and text alignment
-6. **Include metadata** - name, date, grade level, duration
-7. **Provide clear instructions** - students should know exactly what to do
-8. **End with encouragement** - positive closing message
+1. **Always use valid JSON** that follows the Tiptap document structure
+2. **Use square bracket convention** - All user input areas should use highlight marks with `[Descriptive instruction]` text
+3. **Use clean line separation** - Keep different elements on separate paragraph nodes for readability
+4. **Use appropriate features** - select formatting and elements that enhance the educational content
+5. **Use semantic structure** - proper headings, paragraphs, and lists as JSON nodes
+6. **Include clear instructions** - students should know exactly what to do
+7. **Use official highlight colors** - utilize the provided CSS variables (especially `var(--tt-color-highlight-yellow)` for input areas)
+8. **Include metadata** - name, date, grade level, duration in header (each on separate lines)
+9. **End with encouragement** - positive closing message
 
-## Testing Different Features
+## Available Features Reference
 
-To test the full range of editor capabilities, worksheets should include:
-- [ ] All heading levels (h1-h6)
-- [ ] Bold, italic, underline, strikethrough text
-- [ ] Superscript and subscript
-- [ ] Code inline and blocks
-- [ ] All list types (bullet, ordered, task)
-- [ ] Text alignment variations
-- [ ] Highlighted text in different colors
-- [ ] Blockquotes for important information
-- [ ] Links (external, email, phone)
-- [ ] Horizontal rules for sections
-- [ ] Mixed formatting combinations
+The editor supports these features (use as appropriate for your content):
+- **Text formatting**: Bold, italic, strikethrough, code, superscript, subscript
+- **Structure**: All heading levels, paragraphs, bullet/ordered/task lists
+- **Visual elements**: Text alignment, highlighting, blockquotes, horizontal rules
+- **Interactive**: Task lists with checkboxes, links
+- **Code blocks**: For programming/technical subjects
 
-This structure ensures the generated content fully utilizes the Tiptap Simple Editor's capabilities while creating engaging, educational worksheets.
+**Note**: You don't need to use all features in every worksheet. Choose the elements that best serve the educational content and learning objectives.
