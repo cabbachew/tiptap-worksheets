@@ -1,0 +1,241 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": { "level": 1 },
+      "content": [{ "type": "text", "text": "Mathematics: Fractions and Decimals" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Name:" },
+        { "type": "text", "text": " _________________________ " },
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Date:" },
+        { "type": "text", "text": " _________________________" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Grade Level:" },
+        { "type": "text", "text": " 5th Grade " },
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Duration:" },
+        { "type": "text", "text": " 30 minutes" }
+      ]
+    },
+    {
+      "type": "horizontalRule"
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "Instructions" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "Complete all problems below. Show your work where indicated." }]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "Use pencil for all answers" }]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "Simplify fractions to lowest terms" }]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "Round decimals to two decimal places" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Problem 1: Converting Fractions to Decimals" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "Convert the following fractions to decimals:" }]
+    },
+    {
+      "type": "orderedList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "1/2 = _______" }]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "3/4 = _______" }]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "2/5 = _______" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Problem 2: Word Problems" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Sarah ate " },
+        { "type": "text", "marks": [{ "type": "superscript" }], "text": "3" },
+        { "type": "text", "text": "/" },
+        { "type": "text", "marks": [{ "type": "subscript" }], "text": "8" },
+        { "type": "text", "text": " of a pizza. Her brother ate " },
+        { "type": "text", "marks": [{ "type": "superscript" }], "text": "1" },
+        { "type": "text", "text": "/" },
+        { "type": "text", "marks": [{ "type": "subscript" }], "text": "4" },
+        { "type": "text", "text": " of the same pizza." }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Question:" },
+        { "type": "text", "text": " How much pizza did they eat together?" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Work:" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "_________________________________________________________________" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "_________________________________________________________________" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "Answer:" },
+        { "type": "text", "text": " _______" }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": { "level": 3 },
+      "content": [{ "type": "text", "text": "Problem 3: Self-Check" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [{ "type": "text", "text": "Complete this checklist when you finish:" }]
+    },
+    {
+      "type": "taskList",
+      "content": [
+        {
+          "type": "taskItem",
+          "attrs": { "checked": false },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "I showed my work for all problems" }]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": { "checked": false },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "I simplified all fractions" }]
+            }
+          ]
+        },
+        {
+          "type": "taskItem",
+          "attrs": { "checked": false },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "I checked my decimal calculations" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "blockquote",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "marks": [
+                { "type": "bold" },
+                { "type": "highlight", "attrs": { "color": "#4ecdc4" } }
+              ],
+              "text": "Challenge:"
+            },
+            {
+              "type": "text",
+              "marks": [{ "type": "highlight", "attrs": { "color": "#4ecdc4" } }],
+              "text": " Can you think of a real-world situation where you would use fractions and decimals together?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "horizontalRule"
+    },
+    {
+      "type": "paragraph",
+      "attrs": { "textAlign": "center" },
+      "content": [
+        {
+          "type": "text",
+          "marks": [{ "type": "italic" }],
+          "text": "Great job! Remember to review your answers before submitting."
+        }
+      ]
+    }
+  ]
+}
