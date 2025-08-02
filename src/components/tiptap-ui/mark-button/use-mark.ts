@@ -205,6 +205,10 @@ export function useMark(config: UseMarkConfig) {
     return success
   }, [editor, type, onToggled])
 
+  // Disable external hotkeys for basic formatting (bold, italic, underline, strike)
+  // Let Tiptap handle these natively to avoid conflicts
+  const useExternalHotkeys = !['bold', 'italic', 'underline', 'strike'].includes(type)
+  
   useHotkeys(
     MARK_SHORTCUT_KEYS[type],
     (event) => {
@@ -212,7 +216,7 @@ export function useMark(config: UseMarkConfig) {
       handleMark()
     },
     {
-      enabled: isVisible && canToggle,
+      enabled: useExternalHotkeys && isVisible && canToggle,
       enableOnContentEditable: !isMobile,
       enableOnFormTags: true,
     }

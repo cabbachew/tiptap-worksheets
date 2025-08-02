@@ -18,13 +18,14 @@ const widthOptions: { size: WidthSize; label: string; maxWidth: string }[] = [
 
 export function WidthToggle({ onWidthChange, currentWidth }: WidthToggleProps) {
   const currentIndex = widthOptions.findIndex(option => option.size === currentWidth)
+  const safeCurrentIndex = currentIndex === -1 ? 1 : currentIndex // Default to medium if not found
   
   const cycleWidth = () => {
-    const nextIndex = (currentIndex + 1) % widthOptions.length
+    const nextIndex = (safeCurrentIndex + 1) % widthOptions.length
     onWidthChange(widthOptions[nextIndex].size)
   }
 
-  const currentOption = widthOptions[currentIndex]
+  const currentOption = widthOptions[safeCurrentIndex]
 
   return (
     <Button

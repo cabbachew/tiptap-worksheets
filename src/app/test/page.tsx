@@ -1,5 +1,5 @@
-import { TestEditor } from '@/components/TestEditor'
+import { redirect } from 'next/navigation'
 
 export default function TestPage() {
-  return <TestEditor />
+  redirect('/test/edit')
 }
